@@ -16,7 +16,7 @@ from parser import Part, parse_part # type: ignore
 def sol(part: Part, rngs: list[tuple[int, int]]) -> int:
   ans: int = 0
 
-  for rng in rngs:
+  for (start, end) in rngs:
     mem = {}
     # 1e5 because the largest number in the input was 1e9, 1e5**2 > 1e9
     for i in range(1, 100000):
@@ -26,19 +26,19 @@ def sol(part: Part, rngs: list[tuple[int, int]]) -> int:
         # PART ONE
         id = str(i) * 2
         n = int(id)
-        if n <= rng[1] and n >= rng[0]:
+        if n <= end and n >= start:
           ans += n
 
       elif part == Part.TWO:
         # PART TWO
-        upper = len(str(rng[1]))
+        upper = len(str(end))
 
         # brute force
         for j in range(2, upper + 1):
           id = str(i) * j
           if id in mem: continue
           n = int(id)
-          if n <= rng[1] and n >= rng[0]:
+          if n <= end and n >= start:
             ans += n
             mem[id] = True
 

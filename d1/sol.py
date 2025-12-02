@@ -13,7 +13,6 @@ spec.loader.exec_module(parser)  # type: ignore
 
 from parser import Part, parse_part # type: ignore 
 
-
 MOD = 100
 
 def sign(n: int) -> int:

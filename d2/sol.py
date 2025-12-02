@@ -18,12 +18,13 @@ def sol(part: Part, rngs: list[tuple[int, int]]) -> int:
 
   for rng in rngs:
     mem = {}
+    # 1e5 because the largest number in the input was 1e9, 1e5**2 > 1e9
     for i in range(1, 100000):
       id: str | None = None
 
       if part == Part.ONE:
         # PART ONE
-        id = str(i) + str(i)
+        id = str(i) * 2
         n = int(id)
         if n <= rng[1] and n >= rng[0]:
           ans += n
@@ -31,18 +32,15 @@ def sol(part: Part, rngs: list[tuple[int, int]]) -> int:
       elif part == Part.TWO:
         # PART TWO
         upper = len(str(rng[1]))
-        for j in range(2, upper + 1):
-          id = str(i)
-          id *= j
 
+        # brute force
+        for j in range(2, upper + 1):
+          id = str(i) * j
           if id in mem: continue
           n = int(id)
           if n <= rng[1] and n >= rng[0]:
             ans += n
             mem[id] = True
-            break
-
-      assert id != None
 
   return ans
 

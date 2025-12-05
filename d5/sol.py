@@ -27,7 +27,6 @@ def sol(part: Part, rngs: list[tuple[int, int]], queries: list[int]) -> int:
   # PART TWO
   elif part == Part.TWO:
     rngs.sort()
-    #print(rngs)
     i = 0
     while i < len(rngs):
       j = i + 1
@@ -35,9 +34,8 @@ def sol(part: Part, rngs: list[tuple[int, int]], queries: list[int]) -> int:
       while j < len(rngs) and rngs[j - 1][1] >= rngs[j][0]:
         mx = max(rngs[j][1], mx)
         j += 1
-      j -= 1
       ans += mx - rngs[i][0] + 1
-      i = j + 1
+      i = j
 
   return ans
 

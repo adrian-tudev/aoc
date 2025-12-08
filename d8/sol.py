@@ -13,6 +13,7 @@ sys.modules["parser"] = parser
 spec.loader.exec_module(parser)  # type: ignore
 
 from parser import Part, parse_part # type: ignore 
+from parser import sample # type: ignore
 from collections import defaultdict
 
 type Point = tuple[int, int, int]
@@ -114,9 +115,11 @@ def p2(points: list[Point], sample: bool = True):
 
 def main():
   sys.setrecursionlimit(10**6)
+  ex = sample()
   contents: list[str] | None = None
-  #with open("sample.txt", "r") as f:
-  with open("in.txt", "r") as f:
+  file = "sample.txt" if ex else "in.txt"
+  part = parse_part()
+  with open(file, "r") as f:
     contents = f.read().splitlines()
 
   points: list[Point] = []
@@ -125,13 +128,9 @@ def main():
     x = int(l[0]); y = int(l[1]); z = int(l[2])
     points.append((x, y, z))
 
-  part = parse_part()
-
   ans = -1
-  if part == Part.ONE:
-    ans = p1(points, sample=False)
-  elif part == Part.TWO:
-    ans = p2(points, sample=True)
+  if part == Part.ONE:   ans = p1(points, sample=ex)
+  elif part == Part.TWO: ans = p2(points, sample=ex)
   print(ans)
 
 if __name__ == "__main__":

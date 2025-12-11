@@ -68,17 +68,17 @@ get the order FFT and DAC appear in and find number of paths between
 SVR -> FFT/DAC -> DAC/FFT -> OUT
 """
 def p2(g: Graph, sample: bool) -> int:
-  ans: int = 0
+  ans: int = 1
 
   topo = g.topo_sort()
-  order = []
+  visiting_order = ["svr"]
   for node in topo:
     if node == "dac" or node == "fft":
-      order.append(node)
+      visiting_order.append(node)
+  visiting_order.append("out")
 
-  ans += g.count_paths("svr", order[0])
-  ans *= g.count_paths(order[0], order[1])
-  ans *= g.count_paths(order[1], "out")
+  for i in range(1, len(visiting_order)):
+    ans *= g.count_paths(visiting_order[i - 1], visiting_order[i])
 
   return ans
 
